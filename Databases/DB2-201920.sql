@@ -12,8 +12,8 @@ create table DimDate(
 	Year int,
 	Month smallint,
 	Day smallint,
-	MonthName nvarchar(15),
-	WeekdayName nvarchar(15),
+	MonthName nvarchar(30),
+	WeekdayName nvarchar(30),
 	constraint PK_DimDate primary key (DateID)
 )
 
@@ -44,3 +44,7 @@ create table FactProductInventory (
 	constraint FK_FactProductInventory_DimProduct foreign key (ProductID) references DimProduct (ProductID),
 	constraint FK_FactProductInventory_DimDate foreign key (DateID) references DimDate (DateID)
 )
+
+-- Create Index in FactProductInventory (ProductID, DateID)
+create unique index IDX_FactProductInventory
+on FactProductInventory (ProductID, DateID)
